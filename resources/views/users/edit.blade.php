@@ -14,7 +14,7 @@
                         </ul>
                     </div><br/>
                 @endif
-                <form method="post" action="{{ route('users.update', ['id' => $user->id]) }}">
+                <form method="post" action="{{ route('users.update', ['user' => $user->id]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name:</label>
@@ -23,14 +23,14 @@
 
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="text" value="{{ $user->password }}" class="form-control" name="password"/>
+                        <input type="text" value="" class="form-control" name="password"/>
                     </div>
 
                     <div class="form-group">
                         <label for="role">Role:</label>
                         <select name="role" class="browser-default custom-select">
-                            <option selected value="admin">Admin</option>
-                            <option value="user">User</option>
+                            <option {{ $user->getRoleNames()[0] == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                            <option {{ $user->getRoleNames()[0] == 'user' ? 'selected' : '' }} value="user">User</option>
                         </select>
                     </div>
 

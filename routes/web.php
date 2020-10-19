@@ -19,21 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'access'], function () {
 
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['middleware' => ['role:master'], 'prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('create', [UserController::class, 'create'])->name('users.create');
         Route::post('store', [UserController::class, 'store'])->name('users.store');
         Route::get('{user}/edit', [UserController::class, 'edit'])->name('users.edit');
         Route::post('{user}/update', [UserController::class, 'update'])->name('users.update');
-        Route::post('{user}/delete', [UserController::class, 'destroy'])->name('users.delete');
+        Route::get('{user}/delete', [UserController::class, 'destroy'])->name('users.delete');
     });
 
+    /*
     Route::group(['prefix' => 'containers'], function () {
         Route::get('/', [ContainerController::class, 'index'])->name('containers.index');
         Route::get('create', [ContainerController::class, 'create'])->name('containers.create');
@@ -42,5 +39,6 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'access'], function ()
         Route::post('{container}/update', [ContainerController::class, 'update'])->name('containers.update');
         Route::post('{container}/delete', [ContainerController::class, 'destroy'])->name('containers.delete');
     });
+    */
 
 });

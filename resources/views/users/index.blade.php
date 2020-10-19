@@ -15,13 +15,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
                         @foreach ($users as $user)
+                        <tr>
                             <td>{{ $user->name }}</td>
-                            <td><a href="{{ route('users.edit', ['user' => $user->id]) }}">Edit</a> | <a href="{{ route('users.delete', ['user' => $user->id]) }}">Delete</a></td>
+                            <td>
+                                <a href="{{ route('users.edit', ['user' => $user->id]) }}">Edit</a> |
+                                <a href="{{ route('users.delete', ['user' => $user->id]) }}">Delete</a>
+                            </td>
+                        </tr>
                         @endforeach
-                    </tr>
-
                     </tbody>
                 </table>
             </div>

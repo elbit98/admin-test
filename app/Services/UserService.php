@@ -20,7 +20,7 @@ class UserService
     }
 
     public function store($request)
-    {
+    {    // unique:users
         $user = User::create([
             'name' => $request->name,
             'password' => $request->password,
@@ -37,6 +37,16 @@ class UserService
 
         if ($request->has('password')) {
             $user->password = $request->password;
+        }
+
+        $user_role = $user->getRoleNames()[0];
+
+        if ($request->role == 'admin' || $request->role == 'user') {
+            if ($user_role != $request->role) {
+                $user->removeRole($user_role);
+
+                $user->assignRole($request->role);
+            }
         }
 
         $user->save();
